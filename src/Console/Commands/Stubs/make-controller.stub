@@ -44,6 +44,23 @@ class DummyController extends Controller
      */
     public function index(ManageDummyRequest $request)
     {
+        if ($request->ajax()) {
+            if ($request->has('draw')) {
+
+                $query = DummyModel::selectRaw('DummyTable.*');
+
+                return DataTables::of($query)
+                    ->editColumn('DummyField', function ($row) {
+                        return '<span class="sortable"><a href="' . route('admin.DummyRoute.show', $row) . '">' . $row->DummyField . "</a></span>";
+                    })
+                    ->addColumn('action', function ($row) {
+                        return $row->getActionButtonsAttribute();
+                    })
+                    ->rawColumns(['DummyField','action'])
+                    ->make(true);
+            }
+        }
+        
         return view('backend.DummyView.index')
             ->withDummyArray($this->DummyRepoVariable->getActivePaginated(25, 'id', 'asc'));
     }
