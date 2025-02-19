@@ -47,7 +47,7 @@ class DummyController extends Controller
         if ($request->ajax()) {
             if ($request->has('draw')) {
 
-                $query = DummyModel::selectRaw('DummyTable.*');
+                $query = DummyModel::selectRaw('DummyRoute.*');
 
                 return DataTables::of($query)
                     ->editColumn('DummyField', function ($row) {
@@ -60,7 +60,7 @@ class DummyController extends Controller
                     ->make(true);
             }
         }
-        
+
         return view('backend.DummyView.index')
             ->withDummyArray($this->DummyRepoVariable->getActivePaginated(25, 'id', 'asc'));
     }

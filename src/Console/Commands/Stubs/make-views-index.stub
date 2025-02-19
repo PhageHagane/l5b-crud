@@ -23,7 +23,7 @@
         <div class="row mt-4">
             <div class="col">
                 <div class="table-responsive">
-                    <table id="DummyTable_table" class="table">
+                    <table id="DummyRoute_table" class="table">
                         <thead>
                             <tr>
                                 <th>@lang('backend_DummyLabel.table.DummyField')</th>
@@ -47,7 +47,7 @@
 
     }
     $(function() {
-        $('#DummyTable_table').DataTable({
+        $('#DummyRoute_table').DataTable({
             dom: "<'row'<'col-sm-3'l><'text-center col-sm-6'B><'col-sm-3 toolbar'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-5'i><'col-sm-7'p>>",
