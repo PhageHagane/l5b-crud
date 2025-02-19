@@ -14,6 +14,16 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class DummyRepository extends BaseRepository
 {
     /**
+     * DummyRepository constructor.
+     *
+     * @param  DummyModel  $model
+     */
+    public function __construct(DummyModel $model)
+    {
+        $this->model = $model;
+    }
+
+    /**
      * @return string
      */
     public function model()
@@ -60,9 +70,7 @@ class DummyRepository extends BaseRepository
     public function create(array $data) : DummyModel
     {
         return DB::transaction(function () use ($data) {
-            $DummyVariable = parent::create([
-                'DummyField' => $data['DummyField'],
-            ]);
+            $DummyVariable = $this->model::create($data);
 
             if ($DummyVariable) {
                 return $DummyVariable;
@@ -84,9 +92,7 @@ class DummyRepository extends BaseRepository
     public function update(DummyModel $DummyVariable, array $data) : DummyModel
     {
         return DB::transaction(function () use ($DummyVariable, $data) {
-            if ($DummyVariable->update([
-                'DummyField' => $data['DummyField'],
-            ])) {
+            if ($DummyVariable->update($data)) {
 
                 return $DummyVariable;
             }

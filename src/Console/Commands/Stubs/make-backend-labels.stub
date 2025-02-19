@@ -19,7 +19,7 @@ return [
     ],
 
     'labels'    => [
-        'management'    => 'Management of DummyModel',
+        'management'    => 'DummyModel Management',
         'active'        => 'Active',
         'create'        => 'Create',
         'edit'          => 'Edit',
@@ -37,7 +37,7 @@ return [
     ],
 
     'sidebar' => [
-        'title'  => 'Title',
+        'title'  => 'DummyModel',
     ],
 
     'tabs' => [
