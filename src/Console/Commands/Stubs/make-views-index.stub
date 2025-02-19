@@ -20,46 +20,87 @@
                 @include('backend.DummyView.includes.header-buttons')
             </div><!--col-->
         </div><!--row-->
-
         <div class="row mt-4">
             <div class="col">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table id="DummyTable_table" class="table">
                         <thead>
-                        <tr>
-                            <th>@lang('backend_DummyLabel.table.DummyField')</th>
-                            <th>@lang('backend_DummyLabel.table.created')</th>
-                            <th>@lang('backend_DummyLabel.table.last_updated')</th>
-                            <th>@lang('backend_DummyLabel.table.actions')</th>
-                        </tr>
+                            <tr>
+                                <th>@lang('backend_DummyLabel.table.DummyField')</th>
+                                <th style="width:0%">@lang('backend_DummyLabel.table.actions')</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach($DummyArray as $DummyVariable)
-                            <tr>
-                                <td class="align-middle"><a href="/admin/DummyRoute/{{ $DummyVariable->id }}">{{ $DummyVariable->DummyField }}</a></td>
-                                <td class="align-middle">{!! $DummyVariable->created_at !!}</td>
-                                <td class="align-middle">{{ $DummyVariable->updated_at->diffForHumans() }}</td>
-                                <td class="align-middle">{!! $DummyVariable->action_buttons !!}</td>
-                            </tr>
-                        @endforeach
                         </tbody>
                     </table>
-                </div>
-            </div><!--col-->
-        </div><!--row-->
-        <div class="row">
-            <div class="col-7">
-                <div class="float-left">
-                    {!! $DummyArray->count() !!} {{ trans_choice('backend_DummyLabel.table.total', $DummyArray->count()) }}
-                </div>
-            </div><!--col-->
-
-            <div class="col-5">
-                <div class="float-right">
-                    {!! $DummyArray->links() !!}
                 </div>
             </div><!--col-->
         </div><!--row-->
     </div><!--card-body-->
 </div><!--card-->
 @endsection
+@push('after-scripts')
+<script>
+    if (typeof jQuery == 'undefined') {
+
+        console.log('jQuery not loaded.');
+
+    }
+    $(function() {
+        $('#DummyTable_table').DataTable({
+            dom: "<'row'<'col-sm-3'l><'text-center col-sm-6'B><'col-sm-3 toolbar'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+            buttons: [{
+                    extend: 'copy',
+                    className: 'btn btn-light',
+                    text: '<i class="fa fa-copy"></i> Copy'
+                },
+                {
+                    extend: 'print',
+                    className: 'btn btn-light',
+                    text: '<i class="fa fa-print"></i> Print'
+                },
+                {
+                    extend: 'excel',
+                    className: 'btn btn-light',
+                    text: '<i class="fa fa-file-excel-o"></i> Excel'
+                },
+                {
+                    extend: 'pdf',
+                    className: 'btn btn-light',
+                    text: '<i class="fa fa-file-pdf-o"></i> PDF'
+                },
+                {
+                    extend: 'colvis',
+                    className: 'btn btn-light',
+                    text: '<i class="fa fa-eye"></i> Column Visibility'
+                },
+            ],
+            processing: true,
+            responsive: true,
+            bStateSave: true,
+            serverSide: true,
+            autoWidth: false,
+            pageLength: 10,
+            ajax: "{{ route('admin.DummyLabel.index') }}",
+            columns: [{
+                    data: 'DummyField',
+                    name: 'DummyField'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    className: "text-right",
+                    orderable: false,
+                    searchable: false
+                }
+            ],
+            order: [
+                [1, 'desc']
+            ],
+            initComplete: function() {}
+        });
+    });
+</script>
+@endpush

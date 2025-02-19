@@ -30,13 +30,20 @@ trait DummyAttribute
      */
     public function getDeleteButtonAttribute()
     {
-        return '<a href="'.route('admin.DummyRoute.destroy', $this).'"
-                title="'.__('buttons.general.crud.delete').'"
+        return '<a href="javascript:;"
+                style="cursor:pointer;"
+                onclick="$(this).find(\'form\').submit();"
+                title="' . __('buttons.general.crud.delete') . '"
                 data-method="delete"
-                data-trans-button-cancel="'.__('buttons.general.cancel').'"
-                data-trans-button-confirm="'.__('buttons.general.crud.delete').'"
-                data-trans-title="'.__('strings.backend.general.are_you_sure').'"
-                class="btn btn-danger"><i class="fas fa-trash"></i></a> ';
+                data-trans-button-cancel="' . __('buttons.general.cancel') . '"
+                data-trans-button-confirm="' . __('buttons.general.crud.delete') . '"
+                data-trans-title="' . __('strings.backend.general.are_you_sure') . '"
+                class="btn btn-danger">' .
+            '<form action="' . route('admin.DummyRoute.delete-permanently', $this) . '" method="GET" name="delete_item" style="display:none">'
+            . '<input type="hidden" name="_method" value="delete" />'
+            . '<input type="hidden" name="_token" value="' . csrf_token() . '" />'
+            . '</form>' .
+            '<i class="fas fa-trash"></i></a>';
     }
 
     /**

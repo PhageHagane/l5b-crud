@@ -17,7 +17,11 @@ class ManageDummyModelRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isAdmin();
+        if ($this->user()->isAdmin() || $this->user()->can('view DummyRoute')) {
+            return true;
+        }else{
+            return redirect()->route(home_route());
+        }
     }
 
     /**

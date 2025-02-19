@@ -17,7 +17,11 @@ class UpdateDummyModelRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isAdmin();
+        if ($this->user()->isAdmin() || $this->user()->can('edit DummyVariable')) {
+            return true;
+        }else{
+            return redirect()->route(home_route());
+        }
     }
 
     /**

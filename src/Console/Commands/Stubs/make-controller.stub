@@ -16,6 +16,8 @@ use App\Events\Backend\DummyModel\DummyModelCreated;
 use App\Events\Backend\DummyModel\DummyModelUpdated;
 use App\Events\Backend\DummyModel\DummyModelDeleted;
 
+use DataTables;
+
 class DummyController extends Controller
 {
     /**
@@ -42,6 +44,24 @@ class DummyController extends Controller
      */
     public function index(ManageDummyRequest $request)
     {
+
+        if ($request->ajax()) {
+            if ($request->has('draw')) {
+
+                $query = DummyModel::selectRaw('DummyTable.*');
+
+                return DataTables::of($query)
+                    ->editColumn('DummyField', function ($row) {
+                        return '<span class="sortable"><a href="' . route('admin.DummyRoute.show', $row) . '">' . $row->DummyField . "</a></span>";
+                    })
+                    ->addColumn('action', function ($row) {
+                        return $row->getActionButtonsAttribute();
+                    })
+                    ->rawColumns(['DummyField','action'])
+                    ->make(true);
+            }
+        }
+
         return view('backend.DummyView.index')
             ->withDummyArray($this->DummyRepoVariable->getActivePaginated(25, 'id', 'asc'));
     }
@@ -158,11 +178,12 @@ class DummyController extends Controller
      * @throws \App\Exceptions\GeneralException
      * @throws \Throwable
      */
-    public function delete(ManageDummyRequest $request, DummyModel $deletedDummyModel)
+    public function delete(ManageDummyRequest $request, $deletedDummyModel)
     {
-        $this->DummyRepoVariable->forceDelete($deletedDummyModel);
+        // $this->DummyRepoVariable->forceDelete($deletedDummyModel);
+        $deletedDummyModel->forceDelete();
 
-        return redirect()->route('admin.DummyRoute.deleted')
+        return redirect()->route('admin.DummyRoute.index')
             ->withFlashSuccess(__('backend_DummyLabel.alerts.deleted_permanently'));
     }
 

@@ -1,3 +1,4 @@
+<!--
 <li class="breadcrumb-menu">
     <div class="btn-group" role="group" aria-label="Button group">
         <div class="dropdown">
@@ -9,8 +10,7 @@
                 {{-- <a class="dropdown-item" href="{{ route('admin.DummyRoute.deactivated') }}">@lang('backed_DummyLabel.menus.deactivated')</a> --}}
                 <a class="dropdown-item" href="{{ route('admin.DummyRoute.deleted') }}">@lang('backend_DummyLabel.menus.deleted')</a>
             </div>
-        </div><!--dropdown-->
-
-        <!--<a class="btn" href="#">Static Link</a>-->
-    </div><!--btn-group-->
+        </div>
+    </div>
 </li>
+-->

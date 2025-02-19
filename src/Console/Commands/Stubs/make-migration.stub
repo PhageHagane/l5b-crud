@@ -15,8 +15,8 @@ class DummyClass extends Migration
     {
         if (!Schema::hasTable('DummyTable')) {
             Schema::create('DummyTable', function (Blueprint $table) {
-                $table->increments('id');
-                $table->text('DummyField', 80);
+                $table->bigIncrements('id');
+                $table->string('DummyField');
                 $table->softDeletes();
                 $table->timestamps();
             });
