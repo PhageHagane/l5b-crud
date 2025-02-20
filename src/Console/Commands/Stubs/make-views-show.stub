@@ -20,28 +20,13 @@
 
         <div class="row mt-4 mb-4">
             <div class="col">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-expanded="true"><i class="fas fa-user"></i> @lang('backend_DummyLabel.tabs.title')</a>
-                    </li>
-                </ul>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" for="DummyField">@lang('backend_DummyLabel.tabs.content.overview.DummyField')</label>
 
-                <div class="tab-content">
-                    <div class="tab-pane active" id="overview" role="tabpanel" aria-expanded="true">
-
-                        <div class="col">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <tr>
-                                        <th>@lang('backend_DummyLabel.tabs.content.overview.DummyField')</th>
-                                        <td>{{ $DummyVariable->DummyField }}</td>
-                                    </tr>
-                                </table>
-                            </div><!--table-responsive-->
-                        </div><!--col-->
-
-                    </div><!--tab-->
-                </div><!--tab-content-->
+                    <div class="col-md-10">
+                        {{ html()->text('DummyField')->class('form-control bg-white')->disabled()->value(old('DummyField', $DummyVariable->DummyField)) }}
+                    </div><!--col-->
+                </div><!--form-group-->
             </div><!--col-->
         </div><!--row-->
     </div><!--card-body-->
