@@ -17,7 +17,7 @@ class StoreDummyModelRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isAdmin() || $this->user()->can('Store DummyTable');
+        return $this->user()->isAdmin() || $this->user()->can('Store DummyRoute');
     }
 
     /**
