@@ -261,6 +261,7 @@ class L5BCrud extends Command
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'field'                 => $this->option('field'),
             'namespace'             => '\..\database\migrations',
+            'model'                 => ucfirst(camel_case($key)),
             'class'                 => "Create" . ucfirst(str_plural(camel_case($key))) . "Table",
             'table'                 => str_plural($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
