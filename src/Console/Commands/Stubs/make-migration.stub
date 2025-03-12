@@ -23,9 +23,9 @@ class DummyClass extends Migration
 
             // Insert permissions into the permissions table
             $permissions = [
-                ['name' => 'StoreDummyModelRequest', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
-                ['name' => 'UpdateDummyModelRequest', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
-                ['name' => 'ManageDummyModelRequest', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
+                ['name' => 'Store DummyTable', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
+                ['name' => 'Update DummyTable', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
+                ['name' => 'Manage DummyTable', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
             ];
 
             // Use DB facade to insert permissions

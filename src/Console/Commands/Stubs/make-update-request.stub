@@ -17,7 +17,7 @@ class UpdateDummyModelRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isAdmin() || $this->user()->can('UpdateDummyModelRequest');
+        return $this->user()->isAdmin() || $this->user()->can('Update DummyTable');
     }
 
     /**
