@@ -20,6 +20,16 @@ class DummyClass extends Migration
                 $table->softDeletes();
                 $table->timestamps();
             });
+
+            // Insert permissions into the permissions table
+            $permissions = [
+                ['name' => 'StoreDummyModelRequest', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
+                ['name' => 'UpdateDummyModelRequest', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
+                ['name' => 'ManageDummyModelRequest', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
+            ];
+
+            // Use DB facade to insert permissions
+            DB::table('permissions')->insert($permissions);
         }
     }
 
@@ -31,5 +41,14 @@ class DummyClass extends Migration
     public function down()
     {
         Schema::dropIfExists('DummyTable');
+
+        // Remove permissions
+        DB::table('permissions')
+            ->whereIn('name', [
+                'StoreDummyModelRequest',
+                'UpdateDummyModelRequest',
+                'ManageDummyModelRequest'
+            ])
+            ->delete();
     }
 }
