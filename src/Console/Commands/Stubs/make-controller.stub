@@ -54,7 +54,9 @@ class DummyController extends Controller
                         return '<span class="sortable"><a href="' . route('admin.DummyRoute.show', $row) . '">' . $row->DummyField . "</a></span>";
                     })
                     ->addColumn('action', function ($row) {
-                        return $row->getActionButtonsAttribute();
+                        return (auth()->user()->can('View DummyModel') ? $row->getShowButtonAttribute() : '') . 
+                        (auth()->user()->can('Update DummyModel') ? $row->getEditButtonAttribute() : '') . 
+                        (auth()->user()->can('Delete DummyModel') ? $row->getDeleteButtonAttribute() : '');
                     })
                     ->rawColumns(['DummyField','action'])
                     ->make(true);

@@ -15,10 +15,11 @@
                     {{ __('backend_DummyLabel.labels.management') }} <small class="text-muted">{{ __('backend_DummyLabel.labels.active') }}</small>
                 </h4>
             </div><!--col-->
-
-            <div class="col-sm-7">
-                @include('backend.DummyView.includes.header-buttons')
-            </div><!--col-->
+            @if (auth()->user()->can('Store DummyModel'))
+                <div class="col-sm-7">
+                    @include('backend.DummyView.includes.header-buttons')
+                </div><!--col-->
+            @endif
         </div><!--row-->
         <div class="row mt-4">
             <div class="col">
