@@ -46,9 +46,10 @@ class DummyClass extends Migration
         // Remove permissions
         DB::table('permissions')
             ->whereIn('name', [
-                'StoreDummyModelRequest',
-                'UpdateDummyModelRequest',
-                'ManageDummyModelRequest'
+                'View DummyModel',
+                'Store DummyModel',
+                'Update DummyModel',
+                'Delete DummyModel'
             ])
             ->delete();
     }
