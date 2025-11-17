@@ -6,6 +6,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 use Artisan;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class L5BCrud extends Command
 {
@@ -43,42 +44,42 @@ class L5BCrud extends Command
     {
 
         // Transform l5b:crud command parameter to singular lowercase
-        $name = strtolower(snake_case(str_singular($this->argument('name'))));
+        $name = strtolower(Str::snake(Str::singular($this->argument('name'))));
 
         // Create Model "Name.php"
-        $this->model( $name, ucfirst(camel_case($name)), 'make-model.stub' );
+        $this->model( $name, Str::studly($name), 'make-model.stub' );
 
         // Create Attribute Trait "NameAttribute.php"
-        $this->attribute( $name, ucfirst(camel_case($name)) . "Attribute", 'make-attribute.stub' );
+        $this->attribute( $name, Str::studly($name) . "Attribute", 'make-attribute.stub' );
 
         // Create Controller "NameController.php"
-        $this->controller( $name, ucfirst(camel_case($name)) . "Controller", 'make-controller.stub' );
+        $this->controller( $name, Str::studly($name) . "Controller", 'make-controller.stub' );
 
         // Create Repository "NameRepository.php"
-        $this->repository( $name, ucfirst(camel_case($name)) . "Repository", 'make-repository.stub' );
+        $this->repository( $name, Str::studly($name) . "Repository", 'make-repository.stub' );
 
         // Create Validation Request "ManageNameRequest.php"
         // Create Validation Request "StoreNameRequest.php"
         // Create Validation Request "UpdateNameRequest.php"
-        $this->request( $name, "Manage" . ucfirst(camel_case($name)) . "Request", 'make-manage-request.stub' );
-        $this->request( $name, "Store"  . ucfirst(camel_case($name)) . "Request", 'make-store-request.stub' );
-        $this->request( $name, "Update" . ucfirst(camel_case($name)) . "Request", 'make-update-request.stub' );
+        $this->request( $name, "Manage" . Str::studly($name) . "Request", 'make-manage-request.stub' );
+        $this->request( $name, "Store"  . Str::studly($name) . "Request", 'make-store-request.stub' );
+        $this->request( $name, "Update" . Str::studly($name) . "Request", 'make-update-request.stub' );
 
         // Create Event "Events/Backend/Example/ExampleCreated.php"
         // Create Event "Events/Backend/Example/ExampleUpdated.php"
         // Create Event "Events/Backend/Example/ExampleDeleted.php"
-        $this->event( $name, ucfirst(camel_case($name)) . "Created", 'make-event-created.stub' );
-        $this->event( $name, ucfirst(camel_case($name)) . "Updated", 'make-event-updated.stub' );
-        $this->event( $name, ucfirst(camel_case($name)) . "Deleted", 'make-event-deleted.stub' );
+            $this->frontend_event( $name, Str::studly($name) . "Created", 'make-frontend-event-created.stub' );
+            $this->frontend_event( $name, Str::studly($name) . "Updated", 'make-frontend-event-updated.stub' );
+            $this->frontend_event( $name, Str::studly($name) . "Deleted", 'make-frontend-event-deleted.stub' );
 
         // Create Listener "Listeners/Backend/Example/ExampleEventListener.php"
-        $this->listener( $name, ucfirst(camel_case($name)) . "EventListener", 'make-listener.stub' );
+        $this->listener( $name, Str::studly($name) . "EventListener", 'make-listener.stub' );
 
         // Create Migration "YYYY_MM_DD_HHMMSS_create_names_table.php"
-        $this->migration( $name, date('Y_m_d_His_') . "create_" . str_plural($name)."_table", 'make-migration.stub' );
+        $this->migration( $name, date('Y_m_d_His_') . "create_" . Str::plural($name)."_table", 'make-migration.stub' );
 
         // Create Routes "names.php"
-        $this->routes( $name, str_plural($name), 'make-routes.stub' );
+        $this->routes( $name, Str::plural($name), 'make-routes.stub' );
 
         // Create Breadcrumbs "names.php"
         $this->breadcrumbs( $name, $name, 'make-breadcrumbs.stub' );
@@ -98,26 +99,26 @@ class L5BCrud extends Command
         $this->view( $name, 'deleted', 'make-views-deleted.stub' );
         $this->view( $name, '/includes/breadcrumb-links', 'make-views-breadcrumb-links.stub' );
         $this->view( $name, '/includes/header-buttons', 'make-views-header-buttons.stub' );
-        $this->view( $name, '/includes/sidebar-'. str_plural($name), 'make-views-sidebar.stub' );
+        $this->view( $name, '/includes/sidebar-'. Str::plural($name), 'make-views-sidebar.stub' );
 
         $this->label($name,$name,'make-backend-labels.stub');
 
         if($this->option('frontend'))
         {
-            $this->frontend_controller( $name, ucfirst(camel_case($name)) . "Controller", 'make-frontend-controller.stub' );
-            $this->frontend_repository( $name, ucfirst(camel_case($name)) . "Repository", 'make-frontend-repository.stub' );
+            $this->frontend_controller( $name, Str::studly($name) . "Controller", 'make-frontend-controller.stub' );
+            $this->frontend_repository( $name, Str::studly($name) . "Repository", 'make-frontend-repository.stub' );
 
-            $this->frontend_request( $name, "Manage" . ucfirst(camel_case($name)) . "Request", 'make-frontend-manage-request.stub' );
-            $this->frontend_request( $name, "Store"  . ucfirst(camel_case($name)) . "Request", 'make-frontend-store-request.stub' );
-            $this->frontend_request( $name, "Update" . ucfirst(camel_case($name)) . "Request", 'make-frontend-update-request.stub' );
+            $this->frontend_request( $name, "Manage" . Str::studly($name) . "Request", 'make-frontend-manage-request.stub' );
+            $this->frontend_request( $name, "Store"  . Str::studly($name) . "Request", 'make-frontend-store-request.stub' );
+            $this->frontend_request( $name, "Update" . Str::studly($name) . "Request", 'make-frontend-update-request.stub' );
 
-            $this->frontend_event( $name, ucfirst(camel_case($name)) . "Created", 'make-frontend-event-created.stub' );
-            $this->frontend_event( $name, ucfirst(camel_case($name)) . "Updated", 'make-frontend-event-updated.stub' );
-            $this->frontend_event( $name, ucfirst(camel_case($name)) . "Deleted", 'make-frontend-event-deleted.stub' );
+            $this->frontend_event( $name, Str::studly($name) . "Created", 'make-frontend-event-created.stub' );
+            $this->frontend_event( $name, Str::studly($name) . "Updated", 'make-frontend-event-updated.stub' );
+            $this->frontend_event( $name, Str::studly($name) . "Deleted", 'make-frontend-event-deleted.stub' );
 
-            $this->frontend_listener( $name, ucfirst(camel_case($name)) . "EventListener", 'make-frontend-listener.stub' );
+            $this->frontend_listener( $name, Str::studly($name) . "EventListener", 'make-frontend-listener.stub' );
 
-            $this->frontend_routes( $name, str_plural($name), 'make-frontend-routes.stub' );
+            $this->frontend_routes( $name, Str::plural($name), 'make-frontend-routes.stub' );
 
             $this->frontend_view( $name, 'index', 'make-frontend-views-index.stub' );
             $this->frontend_view( $name, 'create', 'make-frontend-views-create.stub' );
@@ -137,9 +138,9 @@ class L5BCrud extends Command
             'name'              => $name,
             'stub'              => __DIR__ . '/Stubs/' . $stub,
             'namespace'         => '\Models',
-            'attribute'         => ucfirst(camel_case($key)) . "Attribute",
+            'attribute'         => Str::studly($key) . "Attribute",
             'field'             => $this->option('field'),
-            'model'             => ucfirst(camel_case($key)),
+            'model'             => Str::studly($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
@@ -152,10 +153,10 @@ class L5BCrud extends Command
         $stubParams = [
             'name'              => $name,
             'stub'              => __DIR__ . '/Stubs/' . $stub,
-            'namespace'         => '\Events\Backend\\' . ucfirst(camel_case($key)),
-            'event'             => ucfirst(camel_case($key)),
-            'model'             => ucfirst(camel_case($key)),
-            'table'             =>  str_plural($key),
+            'namespace'         => '\Events\Backend\\' . Str::studly($key),
+            'event'             => Str::studly($key),
+            'model'             => Str::studly($key),
+            'table'             =>  Str::plural($key),
             'field'             => $this->option('field'),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
@@ -169,10 +170,10 @@ class L5BCrud extends Command
         $stubParams = [
             'name'              => $name,
             'stub'              => __DIR__ . '/Stubs/' . $stub,
-            'namespace'         => '\Listeners\Backend\\' . ucfirst(camel_case($key)),
-            'event'             => ucfirst(camel_case($key)),
+            'namespace'         => '\Listeners\Backend\\' . Str::studly($key),
+            'event'             => Str::studly($key),
             'field'             => $this->option('field'),
-            'model'             => ucfirst(camel_case($key)),
+            'model'             => Str::studly($key),
             'table'             => $key,
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
@@ -187,9 +188,9 @@ class L5BCrud extends Command
             'name'              => $name,
             'stub'              => __DIR__ . '/Stubs/' . $stub,
             'namespace'         => '\Models\Traits\Attribute',
-            'attribute'         => ucfirst(camel_case($key)) . "Attribute",
-            'route'             => str_plural($key),
-            'label'             => str_plural($key),
+            'attribute'         => Str::studly($key) . "Attribute",
+            'route'             => Str::plural($key),
+            'label'             => Str::plural($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
@@ -203,16 +204,16 @@ class L5BCrud extends Command
             'name'                  => $name,
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'namespace'             => '\Http\Controllers\Backend',
-            'array'                 => camel_case(str_plural($key)),
-            'controller'            => ucfirst(camel_case($key)) . "Controller",
+            'array'                 => Str::camel(Str::plural($key)),
+            'controller'            => Str::studly($key) . "Controller",
             'field'                 => $this->option('field'),
-            'label'                 => str_plural($key),
-            'model'                 => ucfirst(camel_case($key)),
-            'repository'            => ucfirst(camel_case($key)) . "Repository",
+            'label'                 => Str::plural($key),
+            'model'                 => Str::studly($key),
+            'repository'            => Str::studly($key) . "Repository",
             'repositoryVariable'    => $key . "Repository",
-            'request'               => ucfirst(camel_case($key)) . "Request",
-            'route'                 => str_plural($key),
-            'variable'              => camel_case($key),
+            'request'               => Str::studly($key) . "Request",
+            'route'                 => Str::plural($key),
+            'variable'              => Str::camel($key),
             'view'                  => $key,
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
@@ -228,10 +229,10 @@ class L5BCrud extends Command
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'field'                 => $this->option('field'),
             'namespace'             => '\Repositories\Backend',
-            'model'                 => ucfirst(camel_case($key)),
-            'repository'            => ucfirst(camel_case($key)) . "Repository",
+            'model'                 => Str::studly($key),
+            'repository'            => Str::studly($key) . "Repository",
             'variable'              => $key,
-            'label'                 => str_plural($key),
+            'label'                 => Str::plural($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
@@ -245,8 +246,8 @@ class L5BCrud extends Command
             'name'                  => $name,
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'field'                 => $this->option('field'),
-            'namespace'             => '\Http\Requests\Backend\\' . ucfirst(camel_case($key)),
-            'model'                 => ucfirst(camel_case($key)),
+            'namespace'             => '\Http\Requests\Backend\\' . Str::studly($key),
+            'model'                 => Str::studly($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
@@ -261,18 +262,18 @@ class L5BCrud extends Command
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'field'                 => $this->option('field'),
             'namespace'             => '\..\database\migrations',
-            'model'                 => ucfirst(camel_case($key)),
-            'class'                 => "Create" . ucfirst(str_plural(camel_case($key))) . "Table",
-            'table'                 => str_plural($key),
+            'model'                 => Str::studly($key),
+            'class'                 => "Create" . Str::studly(Str::plural($key)) . "Table",
+            'table'                 => Str::plural($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
         // If no migration with name "*create_names_table.php" exists then create it
-        if (!glob(database_path() . "/migrations/*create_" . str_plural($key) . "_table.php")) {
+        if (!glob(database_path() . "/migrations/*create_" . Str::plural($key) . "_table.php")) {
             Artisan::call('l5b:stub', $stubParams);
             $this->line('Migration ' . $stubParams['name'] . Artisan::output());
         } else {
-            $this->line('A migration file for the table ' . str_plural($key) . " already exists!\n");
+            $this->line('A migration file for the table ' . Str::plural($key) . " already exists!\n");
         }
 
         // If option -m|--migrate is true then migrate the table
@@ -288,9 +289,9 @@ class L5BCrud extends Command
             'name'                  => $name,
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'namespace'             => '\..\routes\backend',
-            'controller'            => ucfirst(camel_case($key)) . "Controller",
-            'model'                 => ucfirst(camel_case($key)),
-            'route'                 => str_plural($key),
+            'controller'            => Str::studly($key) . "Controller",
+            'model'                 => Str::studly($key),
+            'route'                 => Str::plural($key),
             'variable'              => $key,
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
@@ -305,7 +306,7 @@ class L5BCrud extends Command
             'name'                  => $name,
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'namespace'             => '\..\routes\breadcrumbs\backend',
-            'route'                 => str_plural($key),
+            'route'                 => Str::plural($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
@@ -330,11 +331,11 @@ class L5BCrud extends Command
             'name'                  => $name . ".blade",
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'namespace'             => '\..\resources\views\backend' . '\\' . $key,
-            'label'                 => str_plural($key),
-            'array'                 => camel_case(str_plural($key)),
+            'label'                 => Str::plural($key),
+            'array'                 => Str::camel(Str::plural($key)),
             'field'                 => $this->option('field'),
-            'route'                 => str_plural($key),
-            'variable'              => camel_case($key),
+            'route'                 => Str::plural($key),
+            'variable'              => Str::camel($key),
             'view'                  => $key,
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
@@ -346,16 +347,16 @@ class L5BCrud extends Command
     protected function label($key, $name, $stub)
     {
         $stubParams = [
-            'name'                  => 'backend_' . str_plural($name),
+            'name'                  => 'backend_' . Str::plural($name),
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'namespace'             => '\..\resources\lang\en\\',
-            'label'                 => str_plural($key),
-            'array'                 => camel_case(str_plural($key)),
+            'label'                 => Str::plural($key),
+            'array'                 => Str::camel(Str::plural($key)),
             'field'                 => $this->option('field'),
-            'route'                 => str_plural($key),
-            'variable'              => camel_case($key),
+            'route'                 => Str::plural($key),
+            'variable'              => Str::camel($key),
             'view'                  => $key,
-            'model'                 => ucfirst(camel_case($key)),
+            'model'                 => Str::studly($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
@@ -372,16 +373,16 @@ class L5BCrud extends Command
             'name'                  => $name,
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'namespace'             => '\Http\Controllers\Frontend',
-            'array'                 => camel_case(str_plural($key)),
-            'controller'            => ucfirst(camel_case($key)) . "Controller",
+            'array'                 => Str::camel(Str::plural($key)),
+            'controller'            => Str::studly($key) . "Controller",
             'field'                 => $this->option('field'),
-            'label'                 => str_plural($key),
-            'model'                 => ucfirst(camel_case($key)),
-            'repository'            => ucfirst(camel_case($key)) . "Repository",
+            'label'                 => Str::plural($key),
+            'model'                 => Str::studly($key),
+            'repository'            => Str::studly($key) . "Repository",
             'repositoryVariable'    => $key . "Repository",
-            'request'               => ucfirst(camel_case($key)) . "Request",
-            'route'                 => str_plural($key),
-            'variable'              => camel_case($key),
+            'request'               => Str::studly($key) . "Request",
+            'route'                 => Str::plural($key),
+            'variable'              => Str::camel($key),
             'view'                  => $key,
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
@@ -395,10 +396,10 @@ class L5BCrud extends Command
         $stubParams = [
             'name'              => $name,
             'stub'              => __DIR__ . '/Stubs/' . $stub,
-            'namespace'         => '\Events\Frontend\\' . ucfirst(camel_case($key)),
-            'event'             => ucfirst(camel_case($key)),
-            'model'             => ucfirst(camel_case($key)),
-            'table'             =>  str_plural($key),
+            'namespace'         => '\Events\Frontend\\' . Str::studly($key),
+            'event'             => Str::studly($key),
+            'model'             => Str::studly($key),
+            'table'             =>  Str::plural($key),
             'field'             => $this->option('field'),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
@@ -413,10 +414,10 @@ class L5BCrud extends Command
         $stubParams = [
             'name'              => $name,
             'stub'              => __DIR__ . '/Stubs/' . $stub,
-            'namespace'         => '\Listeners\Frontend\\' . ucfirst(camel_case($key)),
-            'event'             => ucfirst(camel_case($key)),
+            'namespace'         => '\Listeners\Frontend\\' . Str::studly($key),
+            'event'             => Str::studly($key),
             'field'             => $this->option('field'),
-            'model'             => ucfirst(camel_case($key)),
+            'model'             => Str::studly($key),
             'table'             => $key,
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
@@ -431,11 +432,11 @@ class L5BCrud extends Command
             'name'                  => $name,
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'field'                 => $this->option('field'),
-            'namespace'             => '\Repositories\Frontend\\' . ucfirst(camel_case($key)),
-            'model'                 => ucfirst(camel_case($key)),
-            'repository'            => ucfirst(camel_case($key)) . "Repository",
+            'namespace'             => '\Repositories\Frontend\\' . Str::studly($key),
+            'model'                 => Str::studly($key),
+            'repository'            => Str::studly($key) . "Repository",
             'variable'              => $key,
-            'label'                 => str_plural($key),
+            'label'                 => Str::plural($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
@@ -449,8 +450,8 @@ class L5BCrud extends Command
             'name'                  => $name,
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'field'                 => $this->option('field'),
-            'namespace'             => '\Http\Requests\Frontend\\' . ucfirst(camel_case($key)),
-            'model'                 => ucfirst(camel_case($key)),
+            'namespace'             => '\Http\Requests\Frontend\\' . Str::studly($key),
+            'model'                 => Str::studly($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
@@ -463,9 +464,9 @@ class L5BCrud extends Command
             'name'                  => str_replace('_','', $name),
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'namespace'             => '\..\routes\frontend',
-            'controller'            => ucfirst(camel_case($key)) . "Controller",
-            'model'                 => ucfirst(camel_case($key)),
-            'route'                 => str_plural($key),
+            'controller'            => Str::studly($key) . "Controller",
+            'model'                 => Str::studly($key),
+            'route'                 => Str::plural($key),
             'variable'              => $key,
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
@@ -480,11 +481,11 @@ class L5BCrud extends Command
             'name'                  => $name . ".blade",
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'namespace'             => '\..\resources\views\frontend' . '\\' . $key,
-            'label'                 => str_plural($key),
-            'array'                 => camel_case(str_plural($key)),
+            'label'                 => Str::plural($key),
+            'array'                 => Str::camel(Str::plural($key)),
             'field'                 => $this->option('field'),
-            'route'                 => str_plural($key),
-            'variable'              => camel_case($key),
+            'route'                 => Str::plural($key),
+            'variable'              => Str::camel($key),
             'view'                  => $key,
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
@@ -496,16 +497,16 @@ class L5BCrud extends Command
     protected function frontend_label($key, $name, $stub)
     {
         $stubParams = [
-            'name'                  => 'frontend_' . str_plural($name),
+            'name'                  => 'frontend_' . Str::plural($name),
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'namespace'             => '\..\resources\lang\en\\',
-            'label'                 => str_plural($key),
-            'array'                 => camel_case(str_plural($key)),
+            'label'                 => Str::plural($key),
+            'array'                 => Str::camel(Str::plural($key)),
             'field'                 => $this->option('field'),
-            'route'                 => str_plural($key),
-            'variable'              => camel_case($key),
+            'route'                 => Str::plural($key),
+            'variable'              => Str::camel($key),
             'view'                  => $key,
-            'model'                 => ucfirst(camel_case($key)),
+            'model'                 => Str::studly($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
 

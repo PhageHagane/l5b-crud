@@ -14,7 +14,7 @@ class DummyModelEventListener
     {
         $user    = auth()->user()->name;
 
-        $newitem = $event->DummyTable->DummyField;
+        $newitem = $event->DummyVariable->DummyField;
 
         \Log::info('User ' . $user . ' has created item ' . $newitem);
     }
@@ -26,7 +26,7 @@ class DummyModelEventListener
     {
         $user           = auth()->user()->name;
 
-        $updated_item   = $event->DummyTable->DummyField;
+        $updated_item   = $event->DummyVariable->DummyField;
 
         \Log::info('User ' . $user . ' has updated item ' . $updated_item);
     }
@@ -38,7 +38,7 @@ class DummyModelEventListener
     {
         $user           = auth()->user()->name;
 
-        $deleted_item   = $event->DummyTable->DummyField;
+        $deleted_item   = $event->DummyVariable->DummyField;
 
         \Log::info('User ' . $user . ' has deleted item ' . $deleted_item);    }
 

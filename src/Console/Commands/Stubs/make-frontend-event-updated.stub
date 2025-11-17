@@ -14,13 +14,13 @@ class DummyEventUpdated
     /**
      * @var
      */
-    public $DummyTable;
+    public $DummyVariable;
 
     /**
-     * @param $DummyTable
+     * @param $DummyVariable
      */
-    public function __construct($DummyTable)
+    public function __construct($DummyVariable)
     {
-        $this->DummyTable = $DummyTable;
+        $this->DummyVariable = $DummyVariable;
     }
 }
