@@ -51,18 +51,18 @@ class DummyModelEventListener
     public function subscribe($events)
     {
         $events->listen(
-            \App\Events\Backend\DummyModel\DummyModelCreated::class,
-            'App\Listeners\Backend\DummyModel\DummyModelEventListener@onCreated'
+            \App\Events\Frontend\DummyModel\DummyModelCreated::class,
+            'App\Listeners\Frontend\DummyModel\DummyModelEventListener@onCreated'
         );
 
         $events->listen(
-            \App\Events\Backend\DummyModel\DummyModelUpdated::class,
-            'App\Listeners\Backend\DummyModel\DummyModelEventListener@onUpdated'
+            \App\Events\Frontend\DummyModel\DummyModelUpdated::class,
+            'App\Listeners\Frontend\DummyModel\DummyModelEventListener@onUpdated'
         );
 
         $events->listen(
-            \App\Events\Backend\DummyModel\DummyModelDeleted::class,
-            'App\Listeners\Backend\DummyModel\DummyModelEventListener@onDeleted'
+            \App\Events\Frontend\DummyModel\DummyModelDeleted::class,
+            'App\Listeners\Frontend\DummyModel\DummyModelEventListener@onDeleted'
         );
     }
 }

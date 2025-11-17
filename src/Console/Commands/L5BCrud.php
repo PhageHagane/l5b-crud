@@ -157,6 +157,7 @@ class L5BCrud extends Command
             'event'             => Str::studly($key),
             'model'             => Str::studly($key),
             'table'             =>  Str::plural($key),
+            'variable'          => Str::camel($key),
             'field'             => $this->option('field'),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
@@ -175,6 +176,7 @@ class L5BCrud extends Command
             'field'             => $this->option('field'),
             'model'             => Str::studly($key),
             'table'             => $key,
+            'variable'          => Str::camel($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
@@ -400,6 +402,7 @@ class L5BCrud extends Command
             'event'             => Str::studly($key),
             'model'             => Str::studly($key),
             'table'             =>  Str::plural($key),
+            'variable'          => Str::camel($key),
             'field'             => $this->option('field'),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
@@ -419,6 +422,7 @@ class L5BCrud extends Command
             'field'             => $this->option('field'),
             'model'             => Str::studly($key),
             'table'             => $key,
+            'variable'          => Str::camel($key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
